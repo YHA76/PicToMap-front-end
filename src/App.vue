@@ -1,11 +1,7 @@
 <template>
-  <router-view />
+  <div
+    class="min-h-screen overflow-x-hidden bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100"
+  >
+    <RouterView />
+  </div>
 </template>
-
-<script setup>
-// rien à déclarer ici
-</script>
-
-<style>
-/* Styles globaux si besoin */
-</style>
