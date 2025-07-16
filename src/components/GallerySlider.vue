@@ -58,21 +58,24 @@
 
 <script setup>
 import { computed, ref, onMounted } from "vue";
-import picture1 from "../assets/images/picture_1.jpg";
-import picture2 from "../assets/images/picture_2.jpg";
-import picture3 from "../assets/images/picture_3.jpg";
+import picture1 from "../assets/images/new_york.webp";
+import picture2 from "../assets/images/shibuya.webp";
 import picture4 from "../assets/images/amsterdam.webp";
 import picture5 from "../assets/images/weesp.webp";
 import picture6 from "../assets/images/oman.webp";
 import picture7 from "../assets/images/ottawa.webp";
 import picture8 from "../assets/images/senegal.webp";
-import picture9 from "../assets/images/shibuya.webp";
+import picture9 from "../assets/images/times_square.webp";
 import picture10 from "../assets/images/rome.webp";
 import picture11 from "../assets/images/porto.webp";
 import picture12 from "../assets/images/rio.webp";
 import picture13 from "../assets/images/kuala_lumpur.webp";
+import picture14 from "../assets/images/oran.webp";
+import picture15 from "../assets/images/cuba.webp";
+import picture16 from "../assets/images/turquie.webp";
+import picture17 from "../assets/images/londres.webp";
 
-// Tableau d'images avec infos ville et coordonnées (obligatoire pour le template)
+// Tableau d'images avec infos ville et coordonnées
 const images = [
   {
     src: picture1,
@@ -82,18 +85,11 @@ const images = [
     lon: -73.985428,
   },
   {
-    src: picture2, // à corriger
-    city: "Pays-Bas – Weesp",
-    alt: "Weesp, Netherlands",
-    lat: 52.307,
-    lon: 5.041,
-  },
-  {
-    src: picture3, // à corriger
-    city: "Oman – Nizwa",
-    alt: "Nizwa, Oman",
-    lat: 22.9331,
-    lon: 57.5309,
+    src: picture2,
+    city: "Japon – Shibuya",
+    alt: "Shibuya, Tokyo",
+    lat: 35.659286,
+    lon: 139.700806,
   },
   {
     src: picture4,
@@ -130,12 +126,13 @@ const images = [
     lat: 14.692128,
     lon: -17.475936,
   },
+
   {
     src: picture9,
-    city: "Japon – Shibuya",
-    alt: "Shibuya, Tokyo",
-    lat: 35.659286,
-    lon: 139.700806,
+    city: "États-Unis – Times Square",
+    alt: "New York City, Times Square",
+    lat: 40.7598841,
+    lon: -73.9842158,
   },
   {
     src: picture10,
@@ -165,14 +162,42 @@ const images = [
     lat: 3.1569,
     lon: 101.71354,
   },
+  {
+    src: picture14,
+    city: "Algérie – Oran",
+    alt: "Oran, Algeria",
+    lat: 35.7090955,
+    lon: -0.6648043,
+  },
+  {
+    src: picture15,
+    city: "Cuba – La Havane",
+    alt: "Havana, Cuba",
+    lat: 23.14145,
+    lon: -82.3537,
+  },
+  {
+    src: picture16,
+    city: "Turquie – Istanbul",
+    alt: "Istanbul, Turkey",
+    lat: 41.0056762,
+    lon: 28.9763724,
+  },
+  {
+    src: picture17,
+    city: "Royaume-Uni – Londres",
+    alt: "London, United Kingdom",
+    lat: 51.5008132,
+    lon: -0.1196865,
+  },
 ];
 
 // Duplication des images pour assurer un défilement fluide et continu
 const duplicatedImages = computed(() => [...images, ...images, ...images, ...images]);
 
 // ====================  Contrôle de la vitesse  ====================
-// Valeur plus élevée = défilement plus lent
-const animationSpeed = ref(90); // valeur par défaut desktop (90 s)
+
+const animationSpeed = ref(90);
 
 // Ajustement dynamique : mobile → 50 s, tablette → 70 s, desktop → 90 s
 onMounted(() => {

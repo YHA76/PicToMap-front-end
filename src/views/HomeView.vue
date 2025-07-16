@@ -15,8 +15,9 @@
             <img
               src="@/assets/images/logo.png"
               alt="Logo PicToMap"
-              class="h-24 w-auto dark:invert transition duration-500"
+              class="h-24 md:h-24 lg:h-28 xl:h-32 w-auto dark:invert transition duration-500"
             />
+
             Découvrez l'origine&nbsp;de&nbsp;vos&nbsp;photos
           </h1>
 
@@ -25,9 +26,15 @@
             prise.
           </p>
 
-          <p class="text-sm lg:text-base text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            🛡️&nbsp;Vos images <strong>ne sont jamais stockées</strong> : elles sont analysées
-            uniquement pendant le traitement, puis supprimées immédiatement.
+          <p
+            class="mt-4 flex items-start justify-center text-center text-sm leading-relaxed text-gray-700 dark:text-gray-200"
+          >
+            <span>
+              🛡️ Aucune <span class="font-semibold">photo</span> ni
+              <span class="font-semibold">donnée</span> n’est conservée&nbsp;: pas de base de
+              données,<br class="hidden lg:inline" />
+              vos images vivent seulement en mémoire le temps de l’analyse.
+            </span>
           </p>
         </header>
 

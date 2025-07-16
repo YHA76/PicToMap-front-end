@@ -2,7 +2,7 @@
   <div class="relative w-full max-w-3xl mx-auto">
     <div
       :class="[
-        'uploader-area relative w-full h-auto aspect-[4/3] sm:aspect-video rounded-2xl transition-all duration-300 ease-in-out',
+        'uploader-area relative w-full h-auto aspect-[4/4] sm:aspect-video rounded-2xl transition-all duration-300 ease-in-out',
         'bg-white/80 dark:bg-primary-900 backdrop-blur-md',
         'shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]',
         'border-2 border-dashed dark:border-gray-600 overflow-hidden',
@@ -42,7 +42,7 @@
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                class="w-12 h-12 sm:w-16 sm:h-16 mx-auto drop-shadow-md"
+                class="w-12 h-12 sm:w-16 sm:h-16 mx-auto drop-shadow-md stroke-current text-primary-500 dark:text-accent-500 transition-colors duration-300"
               >
                 <path
                   fill="none"
@@ -67,6 +67,14 @@
                   ? "Lâchez pour traiter l'image"
                   : "Glissez et déposez ou sélectionnez un fichier"
               }}
+            </p>
+
+            <!-- Compte à rebours rate-limit -->
+            <p
+              v-if="retryCountdown > 0"
+              class="mt-2 text-[12px] sm:text-xs md:text-sm text-error-500 dark:text-error-500 font-medium text-center break-normal whitespace-nowrap sm:whitespace-normal"
+            >
+              Trop de requêtes&nbsp;: réessayez dans {{ retryCountdown }}&nbsp;s…
             </p>
 
             <!-- Button -->
@@ -112,6 +120,15 @@ const isProcessing = ref(false);
 const hasError = ref(false);
 const errorMessage = ref("");
 const showSuccess = ref(false);
+const retryCountdown = ref(0);
+
+function startCountdown(sec) {
+  retryCountdown.value = sec;
+  const timer = setInterval(() => {
+    retryCountdown.value--;
+    if (retryCountdown.value <= 0) clearInterval(timer);
+  }, 1000);
+}
 
 const triggerFileInput = () => {
   fileInput.value.click();
@@ -154,11 +171,15 @@ const processFile = async (file) => {
     showSuccess.value = true;
     setTimeout(() => (showSuccess.value = false), 4000);
     emit("coordsFound", coords);
-  } catch (error) {
+  } catch (err) {
     isProcessing.value = false;
     hasError.value = true;
-    errorMessage.value = error.message || "Impossible d'extraire les coordonnées GPS";
-    emit("error", error.message);
+    errorMessage.value = err.message || "Impossible d'extraire les coordonnées GPS";
+
+    // Si l’erreur contient retry (HTTP 429)
+    if (err.retry) startCountdown(err.retry);
+
+    emit("error", errorMessage.value);
   }
 };
 </script>

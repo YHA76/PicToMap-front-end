@@ -1,13 +1,15 @@
+<!-- src/components/TheFooter.vue -->
 <template>
   <footer class="bg-gray-100 text-gray-600 dark:bg-gray-900 dark:text-gray-400 py-6 text-sm">
     <div class="max-w-4xl mx-auto flex flex-col items-center gap-4 px-4">
       <!-- Copyright + auteur -->
       <p class="text-center">
-        &copy; 2025 <span class="font-semibold">PicToMap</span> — Réalisé par&nbsp;Yahya&nbsp;Benali
+        &copy; 2025 <span class="font-semibold">PicToMap</span> — Réalisé par Yahya Benali
       </p>
 
       <!-- Icônes réseaux sociaux -->
       <div class="flex gap-6">
+        <!-- GitHub -->
         <a
           href="https://github.com/YHA76"
           target="_blank"
@@ -28,6 +30,7 @@
             />
           </svg>
         </a>
+        <!-- LinkedIn -->
         <a
           href="https://www.linkedin.com/in/yahya-benali-507b09223/"
           target="_blank"
@@ -48,8 +51,16 @@
         </a>
       </div>
 
-      <!-- Mention confidentialité -->
-      <p class="italic text-xs">Aucune image n’est stockée</p>
+      <!-- Mention confidentialité + lien vers la page dédiée -->
+      <div class="flex flex-col items-center space-y-1">
+        <p class="italic text-xs">Aucune image n’est stockée.</p>
+        <router-link
+          to="/privacy"
+          class="text-xs underline hover:text-primary-500 transition-colors"
+        >
+          Politique de confidentialité
+        </router-link>
+      </div>
     </div>
   </footer>
 </template>
