@@ -1,0 +1,4 @@
+[build]
+  publish   = "dist"
+  # On installe en omettant les optional deps, puis on lance vite
+  command   = "npm ci --omit=optional && npm run build"
