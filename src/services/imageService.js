@@ -1,3 +1,5 @@
+const API = import.meta.env.VITE_API_URL;
+
 export async function extractGpsFromImage(file) {
   const formData = new FormData();
   formData.append("image", file);
