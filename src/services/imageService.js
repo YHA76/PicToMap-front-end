@@ -3,7 +3,7 @@ export async function extractGpsFromImage(file) {
   formData.append("image", file);
 
   try {
-    const response = await fetch("http://192.168.1.125:5000/extract-gps", {
+    const response = await fetch(`${API}/extract-gps`, {
       method: "POST",
       body: formData,
     });
