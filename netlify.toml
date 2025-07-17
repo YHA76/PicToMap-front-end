@@ -1,4 +1,16 @@
 [build]
+  ## Commande d'installation + build : on garde bien
+  ## toutes les dépendances (optionnelles comprises)
+  command   = "npm ci && npm run build"
+  ## Dossier à publier une fois la build terminée
   publish   = "dist"
-  # On installe en omettant les optional deps, puis on lance vite
-  command   = "npm ci --omit=optional && npm run build"
+
+[context.production.environment]
+  ## S'assure qu'on est en mode production
+  NODE_ENV = "production"
+
+[[redirects]]
+  ## Route all requests to index.html so que votre SPA Vue fonctionne
+  from     = "/*"
+  to       = "/index.html"
+  status   = 200
