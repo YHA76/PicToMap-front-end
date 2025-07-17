@@ -92,6 +92,9 @@ const globalCount = ref(0);
 const result = ref("");
 const error = ref("");
 
+// on récupère la base URL depuis la var d’env. Netlify
+const API = import.meta.env.VITE_API_URL;
+
 const updateCoords = (coords) => {
   result.value = `https://maps.google.com/?q=${coords.latitude},${coords.longitude}`;
   error.value = "";
@@ -104,11 +107,14 @@ const updateError = (errMsg) => {
 
 onMounted(async () => {
   try {
-    const response = await fetch("http://192.168.1.125:5000/get-count");
-    const data = await response.json();
+    const res = await fetch(`${API}/get-count`);
+    if (!res.ok) {
+      throw new Error(`Statut HTTP ${res.status}`);
+    }
+    const data = await res.json();
     globalCount.value = data.count;
   } catch (err) {
-    console.error("Erreur lors de la récupération du compteur :", err);
+    console.error("Erreur lors de la récupération du compteur :", err);
   }
 });
 </script>
